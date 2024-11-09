@@ -1,0 +1,69 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build directories
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm/
+
+# IDE settings
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Temporary files
+*.tmp
+*.temp
+
+# Coverage files
+coverage/
+.nyc_output/
+
+# Generated files
+*.min.js
+*.map
+
+# Production
+*.env.production
+out/
+
+# System files
+*.bak
+*.orig
+
+# Yarn Integrity
+.yarn-integrity
+
+# ESLint cache
+.eslintcache
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+/coverage
+/jest.config.js
