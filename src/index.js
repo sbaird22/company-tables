@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
-import {Client} from 'pg';
+import pg from 'pg';
 import inquirer from 'inquirer';
 
 dotenv.config();
 
+const {Pool} =pg;
 
-const db = new Client({
+const db = new Pool({
     user: process.env.PG_USER,
     host: process.env.PG_HOST,
     database: process.env.PG_DATABASE,
@@ -19,7 +20,7 @@ db.connect(err =>{
     mainMenu();
 });
 
-function mainMenu(): void{
+function mainMenu(){
     inquirer.prompt({
         type: 'list',
         name: 'action',
@@ -65,9 +66,27 @@ function mainMenu(): void{
 }
 
 // View departments
-function viewAllDepartments(): void{
+function viewAllDepartments(){
     db.query('SELECT * FROM departments' , (err, res)=>{
         if(err) throw err;
+        console.table(res.rows);
+        mainMenu();
+    });
+}
+
+// View roles
+function viewAllRoles(){
+    db.query('SELECT roles.id, roles.title, departments.name AS department, roles.salary From roles JOIN departments ON roles.department_id = departments.id', (err, res)=>{
+        if (err) throw err;
+        console.table(res.rows);
+        mainMenu();
+    });
+}
+
+//View employees
+function viewAllEmployees(){
+    db.query('SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.name AS department, roles.salary, CONTACT (manager.first_name, manager.last_name) AS manger FROM employees JOIN roles ON employee.role_id = roles.id JOIN departments ON roles.department_id = departments.id LEFT JOIN employees AS manger ON employees.manger_id = manager.id',(err, res)=>{
+        if (err) throw err;
         console.table(res.rows);
         mainMenu();
     });
