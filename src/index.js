@@ -14,6 +14,7 @@ const db = new Client({
     port: parseInt(process.env.PG_PORT, 10)
 });
 
+
 db.connect(err =>{
     if (err) throw err;
     console.log('Connected to DB');
@@ -49,7 +50,7 @@ async function mainMenu(){
             case 'Add a department':
                 addDepartment();
                 break;
-            case 'addRole':
+            case 'Add a role':
                 addRole();
                 break;
             case 'Add an employee':
@@ -85,7 +86,7 @@ function viewAllRoles(){
 
 //View employees
 function viewAllEmployees(){
-    db.query('SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.name AS department, roles.salary, CONTACT (manager.first_name, manager.last_name) AS manger FROM employees JOIN roles ON employee.role_id = roles.id JOIN departments ON roles.department_id = departments.id LEFT JOIN employees AS manger ON employees.manger_id = manager.id',(err, res)=>{
+    db.query('SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.name AS department, roles.salary, CONCAT (manager.first_name, manager.last_name) AS manager FROM employees JOIN roles ON employees.role_id = roles.id JOIN departments ON roles.department_id = departments.id LEFT JOIN employees AS manager ON employees.manager_id = manager.id',(err, res)=>{
         if (err) throw err;
         console.table(res.rows);
         mainMenu();
@@ -101,6 +102,7 @@ function addDepartment(){
         db.query('INSERT INTO departments (name) VALUES ($1)', [answer.name], (err)=>{
             if (err) throw err;
             console.log('Department added successfully!');
+            mainMenu();
         });
     });
 }
