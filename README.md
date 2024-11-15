@@ -28,4 +28,5 @@ Not looking at pull requests
 
 ## Description
 This was an app created in a coding bootcamp to display knowledge learned writing functions in SQL databases and tables
-And using the knowledge learned for creating tables and joining data as well as writing functions to run an application.
+And using the knowledge learned for creating tables and joining data as well as writing functions to run an application.  
+Walkthrough video: https://drive.google.com/file/d/1ts4EGKdhffe6iV8RdSWXKXumVqOry_NS/view
